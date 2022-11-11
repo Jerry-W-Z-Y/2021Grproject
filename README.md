@@ -4,3 +4,7 @@ this .md file is used to test the group work function.
 
 feel free to add your comments here.
 anything is ok:)
+
+log：
+11/11 16:52
+Download the original sample file from Blackboard, our works will base on this file.
