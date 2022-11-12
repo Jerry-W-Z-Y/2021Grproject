@@ -1,0 +1,34 @@
+        public int checkvar(String a){
+
+            for(int i = 0 ; i < 100; i++){
+                if (a == var[i].varName){
+                    return i;
+                }
+            }
+        return -1;// not variable
+        }
+        //
+        //int p = checkvar(x);
+        //if (p>0){
+        //   if (var[p].type=="bool"){
+        //        boolean bo = Boolean.parseBoolean(var[p].data);
+        //    } else if (var[p].type=="int") {
+        //        int ii = Integer.parseInt(var[p].data);
+        //
+        //    }
+        // }
+        
+ class variable{
+
+    String type;
+    String varName;
+    String data;
+
+    variable(String a, String b, String c){
+        this.type = a;
+        this.varName = b;
+        this.data = c;
+        }
+}
+        
+        
