@@ -8,3 +8,6 @@ anything is ok:)
 log：
 11/11 16:52
 Download the original sample file from Blackboard, our works will base on this file.
+
+11/12 16:00
+Finish REQ1. vardef stored in data[]
