@@ -5,6 +5,8 @@ public class Simple {
     private String lab, type, varName;
     private boolean bool;
     private int integer;
+    
+    private String expName,bop,expref1,expref2;
 
     public Simple() {
     }
@@ -26,9 +28,10 @@ public class Simple {
         //code here
          Simple b = new Simple();
          b.expName = a[1];
-         b.varName = a[2];
+         b.expref1 = a[2];
+         b.expref2 = a[4];
          b.bop = a[3];
-          switch(bop){
+            switch(bop){
                 case "+": ;
                 case "-": ;
                 case "*": ;
@@ -40,9 +43,15 @@ public class Simple {
                 case "==": ;
                 case "!=": ;
             }
+            switch(bop){
+                case "&&": ;
+                case "||": ;
+                case "==": ;
+                case "!=": ;
+            }
+        
             System.out.println("binexpr variable");
             return b;
-        System.out.println("binexpr variable");
     }
     public void unexpr(String[] a) {
         //code here
