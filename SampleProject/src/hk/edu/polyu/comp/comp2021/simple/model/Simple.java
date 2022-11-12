@@ -31,6 +31,7 @@ public class Simple {
          b.expref1 = a[2];
          b.expref2 = a[4];
          b.bop = a[3];
+        //if expref1 and expref2 is int {
             switch(bop){
                 case "+": ;
                 case "-": ;
@@ -43,6 +44,7 @@ public class Simple {
                 case "==": ;
                 case "!=": ;
             }
+         //if expref1 and expref2 is bool {
             switch(bop){
                 case "&&": ;
                 case "||": ;
