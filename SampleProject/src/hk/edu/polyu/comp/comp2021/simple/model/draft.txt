@@ -2,7 +2,7 @@
 
             for(int i = 0 ; i < 100; i++){
                 if (a == var[i].varName){
-                    return i;
+                    return i; // return the index of variable
                 }
             }
         return -1;// not variable
