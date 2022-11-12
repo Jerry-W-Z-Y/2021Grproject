@@ -22,8 +22,26 @@ public class Simple {
         }
         return k;
     }
-    public void binexpr(String[] a) {
+    public Simple binexpr(String[] a) {
         //code here
+         Simple b = new Simple();
+         b.expName = a[1];
+         b.varName = a[2];
+         b.bop = a[3];
+          switch(bop){
+                case "+": ;
+                case "-": ;
+                case "*": ;
+                case "/": ;
+                case ">": ;
+                case ">=": ;
+                case "<": ;
+                case "<=": ;
+                case "==": ;
+                case "!=": ;
+            }
+            System.out.println("binexpr variable");
+            return b;
         System.out.println("binexpr variable");
     }
     public void unexpr(String[] a) {
