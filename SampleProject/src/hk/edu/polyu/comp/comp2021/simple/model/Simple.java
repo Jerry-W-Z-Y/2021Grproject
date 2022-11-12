@@ -6,7 +6,7 @@ public class Simple {
     private boolean bool;
     private int integer;
     
-    private String expName,bop,expref1,expref2;
+    private String expName,bop,uop,expref1,expref2;
 
     public Simple() {
     }
@@ -57,6 +57,20 @@ public class Simple {
     }
     public void unexpr(String[] a) {
         //code here
+        Simple c = new Simple();
+        c.expName = a[1];
+        c.uop = a[2];
+        //if expref1 is int{
+            switch(bop){
+                case "#": ;
+                case "~": ;
+            }
+
+            //if expref1 is bool{
+            switch(bop){
+                case "!": ;
+            }
+        c.expref1 = a[3];
         System.out.println("unexpr variable");
     }
 
