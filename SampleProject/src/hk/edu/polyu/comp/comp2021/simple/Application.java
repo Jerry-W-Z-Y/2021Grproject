@@ -4,7 +4,7 @@ import hk.edu.polyu.comp.comp2021.simple.model.Simple;
 
 import java.util.Scanner;
 
-
+/**
     public static int checkvar(String a, Simple sim[]){
         for (int i = 0 ; i< 100; i++){
             if(a.equals(sim[i].getvarname())){
@@ -27,6 +27,7 @@ import java.util.Scanner;
     }
     return s;
 }
+ **/
 
 public class Application {
 
@@ -40,14 +41,16 @@ public class Application {
             Scanner scanner = new Scanner(System.in);
             input = scanner.nextLine();
             String[] strs = input.split(" ");
+            Simple test = new Simple(strs);
             switch (strs[0]) {
                 case "vardef":
                     int i = 0;
                     while (data[i] != null)
                         i++;
-                    data[i] = simple.vardef(strs);
+                    data[i] = test.vardef(strs);
                     break;
                 case "binexpr":
+                    /*
                     int  bi2 = checkvar(strs[2],data);
                     if (bi2>0){
                         strs[2]= getvar(bi2, data);
@@ -57,6 +60,11 @@ public class Application {
                         strs[4] = getvar(bi4,data);
                     }
                     simple.binexpr(strs[1],strs[2],strs[3],strs[4]);
+                     */
+                    simple.binexpr(strs[1],strs[2],strs[3],strs[4], data[0]);
+                    int a = data.length;
+                    System.out.println(a);
+
 
                     break;
                 case "unexpr":
