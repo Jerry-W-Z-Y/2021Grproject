@@ -11,3 +11,7 @@ Download the original sample file from Blackboard, our works will base on this f
 
 11/12 16:00
 Finish REQ1. vardef stored in data[]
+
+11/13 11:10
+modif req2 binexpr 
+create function getvar() to access the data of variable stored in data[]
