@@ -36,7 +36,7 @@ public class Simple {
         }
         return k;
     }
-public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
+    public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
         //code here
 
         Simple b = new Simple();
