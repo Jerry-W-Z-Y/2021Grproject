@@ -36,7 +36,7 @@ public class Simple {
         }
         return k;
     }
-    public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
+public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
         //code here
 
         Simple b = new Simple();
@@ -45,7 +45,8 @@ public class Simple {
 
         b.expName = a1;
 
-        for(int i = 0 ; i<100;i++){
+        for(int i = 0 ; i<test.length;i++){
+            if(test[i]!=null){
             if ((a2==test[i].varName)&&(test[i].type=="int")){
                     i2 = test[i].integer;
                     a2 = String.valueOf(i2);
@@ -56,8 +57,10 @@ public class Simple {
                     a2 = String.valueOf(b2);
                     break;
             }
+            }
         }
-        for(int i = 0 ; i<100;i++){
+        for(int i = 0 ; i<test.length;i++){
+            if(test[i]!=null){
             if ((a4==test[i].varName)&&(test[i].type=="int")){
                 i4 = test[i].integer;
                 a4 = String.valueOf(i4);
@@ -68,14 +71,19 @@ public class Simple {
                 a4= String.valueOf(b4);
                 break;
             }
+            }
         }
+
+
+
+
 
         b.bop = a3;
 
         //check a[2], a[4] whether is variables
         //if expref1 and expref2 are int {
-        if (a2.matches("-?\\d+")&& a4.matches("-?\\d+")) {  //a2 a4 are integers
-            switch (bop) {
+        if ((isNumeric(a2))&&isNumeric(a4)) {  //a2 a4 are integers
+            switch (b.bop) {
                 case "+": b.intexp =Integer.parseInt(a2) + Integer.parseInt(a4);
                 case "-": b.intexp =Integer.parseInt(a2) - Integer.parseInt(a4);
                 case "*": b.intexp =Integer.parseInt(a2) * Integer.parseInt(a4);
@@ -90,7 +98,7 @@ public class Simple {
         }
 
         else {
-            switch (bop) {
+            switch (b.bop) {
                 case "&&": b.boolexp = Boolean.parseBoolean(a2) && Boolean.parseBoolean(a4);
 
                 case "||": b.boolexp = Boolean.parseBoolean(a2) || Boolean.parseBoolean(a4);
@@ -101,6 +109,8 @@ public class Simple {
 
             }
         }
+
+
         return b;
 
     }
