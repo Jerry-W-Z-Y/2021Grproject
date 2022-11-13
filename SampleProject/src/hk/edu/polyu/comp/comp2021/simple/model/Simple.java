@@ -24,37 +24,49 @@ public class Simple {
         }
         return k;
     }
-    public Simple binexpr(String[] a) {
-        //code here
-         Simple b = new Simple();
-         b.expName = a[1];
-         b.expref1 = a[2];
-         b.expref2 = a[4];
-         b.bop = a[3];
-        //if expref1 and expref2 is int {
-            switch(bop){
-                case "+": ;
-                case "-": ;
-                case "*": ;
-                case "/": ;
-                case ">": ;
-                case ">=": ;
-                case "<": ;
-                case "<=": ;
-                case "==": ;
-                case "!=": ;
+        public Simple binexpr(String a1,String a2 ,String a3,String a4) {
+            //code here
+            Simple b = new Simple();
+            int result;
+            boolean bolresult;
+            b.expName = a1;'
+
+            b.expref1 = a2;
+            b.bop = a3;
+            b.expref2 = a4;
+            //check a[2], a[4] whether is variables
+            //if expref1 and expref2 are int {
+            if (a1.matches("-?\\d+")&& a4.matches("-?\\d+")) {  //a2 a4 are integers
+                switch (bop) {
+                    case "+":result =Integer.parseInt(a2) + Integer.parseInt(a4);
+                    case "-":result =Integer.parseInt(a2) - Integer.parseInt(a4);;
+                    case "*":result =Integer.parseInt(a2) * Integer.parseInt(a4);;
+                    case "/":result =Integer.parseInt(a2) / Integer.parseInt(a4);;
+                    case ">": bolresult= Integer.parseInt(a2)>Integer.parseInt(a4);
+                    case ">=": bolresult= Integer.parseInt(a2)>=Integer.parseInt(a4);
+                    case "<": bolresult= Integer.parseInt(a2)<Integer.parseInt(a4);
+                    case "<=": bolresult= Integer.parseInt(a2)<= Integer.parseInt(a4);
+                    case "==": bolresult= Integer.parseInt(a2)== Integer.parseInt(a4);
+                    case "!=": bolresult= Integer.parseInt(a2)!= Integer.parseInt(a4);
+                }
             }
-         //if expref1 and expref2 is bool {
-            switch(bop){
-                case "&&": ;
-                case "||": ;
-                case "==": ;
-                case "!=": ;
+
+            else {
+                switch (bop) {
+                    case "&&": bolresult = Boolean.parseBoolean(a2) && Boolean.parseBoolean(a4);
+
+                    case "||": bolresult = Boolean.parseBoolean(a2) || Boolean.parseBoolean(a4);
+
+                    case "==": bolresult = Boolean.parseBoolean(a2) == Boolean.parseBoolean(a4);
+
+                    case "!=": bolresult = Boolean.parseBoolean(a2) != Boolean.parseBoolean(a4);
+
+                }
             }
-        
             System.out.println("binexpr variable");
             return b;
-    }
+
+        }
     public void unexpr(String[] a) {
         //code here
         Simple c = new Simple();
