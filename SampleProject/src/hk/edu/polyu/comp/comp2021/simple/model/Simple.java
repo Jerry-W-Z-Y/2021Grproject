@@ -3,8 +3,8 @@ package hk.edu.polyu.comp.comp2021.simple.model;
 public class Simple {
 
     private String lab, type, varName;
-    private boolean bool;
-    private int integer;
+    private boolean bool,boolexp;
+    private int integer, intexp;
     
     private String expName,bop,uop,expref1,expref2;
 
@@ -36,11 +36,12 @@ public class Simple {
         }
         return k;
     }
-        public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
+    public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
         //code here
+
         Simple b = new Simple();
-        int i2,i4,result;
-        boolean b2,b4,bolresult;
+        int i2,i4;
+        boolean b2,b4;
 
         b.expName = a1;
 
@@ -75,28 +76,28 @@ public class Simple {
         //if expref1 and expref2 are int {
         if (a2.matches("-?\\d+")&& a4.matches("-?\\d+")) {  //a2 a4 are integers
             switch (bop) {
-                case "+": result =Integer.parseInt(a2) + Integer.parseInt(a4);
-                case "-": result =Integer.parseInt(a2) - Integer.parseInt(a4);
-                case "*": result =Integer.parseInt(a2) * Integer.parseInt(a4);
-                case "/": result =Integer.parseInt(a2) / Integer.parseInt(a4);
-                case ">": bolresult= Integer.parseInt(a2) > Integer.parseInt(a4);
-                case ">=": bolresult= Integer.parseInt(a2) >= Integer.parseInt(a4);
-                case "<": bolresult= Integer.parseInt(a2) < Integer.parseInt(a4);
-                case "<=": bolresult= Integer.parseInt(a2) <= Integer.parseInt(a4);
-                case "==": bolresult= Integer.parseInt(a2) == Integer.parseInt(a4);
-                case "!=": bolresult= Integer.parseInt(a2) != Integer.parseInt(a4);
+                case "+": b.intexp =Integer.parseInt(a2) + Integer.parseInt(a4);
+                case "-": b.intexp =Integer.parseInt(a2) - Integer.parseInt(a4);
+                case "*": b.intexp =Integer.parseInt(a2) * Integer.parseInt(a4);
+                case "/": b.intexp =Integer.parseInt(a2) / Integer.parseInt(a4);
+                case ">": b.boolexp = Integer.parseInt(a2) > Integer.parseInt(a4);
+                case ">=": b.boolexp= Integer.parseInt(a2) >= Integer.parseInt(a4);
+                case "<": b.boolexp= Integer.parseInt(a2) < Integer.parseInt(a4);
+                case "<=": b.boolexp= Integer.parseInt(a2) <= Integer.parseInt(a4);
+                case "==": b.boolexp= Integer.parseInt(a2) == Integer.parseInt(a4);
+                case "!=": b.boolexp= Integer.parseInt(a2) != Integer.parseInt(a4);
             }
         }
 
         else {
             switch (bop) {
-                case "&&": bolresult = Boolean.parseBoolean(a2) && Boolean.parseBoolean(a4);
+                case "&&": b.boolexp = Boolean.parseBoolean(a2) && Boolean.parseBoolean(a4);
 
-                case "||": bolresult = Boolean.parseBoolean(a2) || Boolean.parseBoolean(a4);
+                case "||": b.boolexp = Boolean.parseBoolean(a2) || Boolean.parseBoolean(a4);
 
-                case "==": bolresult = Boolean.parseBoolean(a2) == Boolean.parseBoolean(a4);
+                case "==": b.boolexp= Boolean.parseBoolean(a2) == Boolean.parseBoolean(a4);
 
-                case "!=": bolresult = Boolean.parseBoolean(a2) != Boolean.parseBoolean(a4);
+                case "!=": b.boolexp = Boolean.parseBoolean(a2) != Boolean.parseBoolean(a4);
 
             }
         }
@@ -104,7 +105,7 @@ public class Simple {
 
     }
 
-        }
+    
     public void unexpr(String[] a) {
         //code here
         Simple c = new Simple();
