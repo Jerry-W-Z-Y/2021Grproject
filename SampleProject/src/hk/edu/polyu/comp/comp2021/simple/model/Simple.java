@@ -9,7 +9,7 @@ public class Simple {
     private String expName,bop,uop,expref1,expref2;
     
     
-        public static boolean isNumeric(String string) {
+   public static boolean isNumeric(String string) {
         int intValue;
 
         if(string == null || string.equals("")) {
