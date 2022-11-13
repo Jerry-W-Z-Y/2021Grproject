@@ -38,21 +38,7 @@ public class Simple {
         }
     }
 
-    public Simple vardef(String[] a) {
-        //code here
-        Simple k = new Simple();
-        k.lab = a[1];
-        k.type = a[2];//only "bool", "int" allowed
-        k.varName = a[3];
-        if (k.type.equals("bool"))
-            k.bool = Boolean.parseBoolean(a[4]);
-        else if (k.type.equals("int")) {
-            int n = Integer.parseInt(a[4]);
-            k.integer = n > 99999 ? 99999 : n < -99999 ? -99999 : n;
-        }
-        return k;
-    }
-        public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
+    public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
         //code here
 
         Simple b = new Simple();
@@ -61,7 +47,7 @@ public class Simple {
         b.boolexp = false;
 
         b.expName = a1;
-        /*
+
         for(int i = 0 ; i<test.length;i++){
 
             if(test[i]!=null){
@@ -91,7 +77,7 @@ public class Simple {
             }
             }
         }
-        */
+
 
 
 
