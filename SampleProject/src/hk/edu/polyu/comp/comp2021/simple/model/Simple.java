@@ -2,7 +2,14 @@ package hk.edu.polyu.comp.comp2021.simple.model;
 
 public class Simple {
     
-    public static boolean isNumeric(String string) {
+    private String lab, type, varName;
+    private boolean bool,boolexp;
+    private int integer, intexp;
+    
+    private String expName,bop,uop,expref1,expref2;
+    
+    
+        public static boolean isNumeric(String string) {
         int intValue;
 
         if(string == null || string.equals("")) {
@@ -15,12 +22,7 @@ public class Simple {
         }
         return false;
     }
-
-    private String lab, type, varName;
-    private boolean bool,boolexp;
-    private int integer, intexp;
     
-    private String expName,bop,uop,expref1,expref2;
 
     public Simple() {
     }
