@@ -50,22 +50,11 @@ public class Application {
                     data[i] = test.vardef(strs);
                     break;
                 case "binexpr":
-                    /*
-                    int  bi2 = checkvar(strs[2],data);
-                    if (bi2>0){
-                        strs[2]= getvar(bi2, data);
-                    };
-                    int bi4 = checkvar(strs[4],data);
-                    if (bi4>0){
-                        strs[4] = getvar(bi4,data);
-                    }
-                    simple.binexpr(strs[1],strs[2],strs[3],strs[4]);
-                     */
-                    simple.binexpr(strs[1],strs[2],strs[3],strs[4], data[0]);
-                    int a = data.length;
-                    System.out.println(a);
 
-
+                     i = 0;
+                    while (data[i] != null)
+                        i++;
+                    data[i] = simple.binexpr(strs[1],strs[2],strs[3],strs[4], data);
                     break;
                 case "unexpr":
                     simple.unexpr(strs);
