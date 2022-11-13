@@ -89,12 +89,11 @@ public class Simple {
         //check a[2], a[4] whether is variables
         //if expref1 and expref2 are int {
         if (((isNumeric(a2))) && (isNumeric(a4))) {  //a2 a4 are integers
-            int x = (Integer.parseInt(a2));
-            int y = Integer.parseInt(a4);
+
 
             switch (a3) {
                 case "+":
-                    b.intexp = x + y;
+                    b.intexp = Integer.parseInt(a2) + Integer.parseInt(a4);
                     break;
                 case "-":
                     b.intexp = Integer.parseInt(a2) - Integer.parseInt(a4);
@@ -105,6 +104,9 @@ public class Simple {
                 case "/":
                     b.intexp = Integer.parseInt(a2) / Integer.parseInt(a4);
                     break;
+                case "%" :
+                    b.intexp =  Integer.parseInt(a2) % Integer.parseInt(a4);
+                        break;
                 case ">":
                     b.boolexp = Integer.parseInt(a2) > Integer.parseInt(a4);
                     break;
