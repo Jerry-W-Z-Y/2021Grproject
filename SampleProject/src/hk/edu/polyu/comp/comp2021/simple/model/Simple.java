@@ -36,49 +36,73 @@ public class Simple {
         }
         return k;
     }
-        public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test) {
-            //code here
-            Simple b = new Simple();
-            int result;
-            boolean bolresult;
-            b.expName = a1;
-            if (test.varName.equals("test123")) {
-                System.out.println("the test is success");
-                return test;
+        public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
+        //code here
+        Simple b = new Simple();
+        int i2,i4,result;
+        boolean b2,b4,bolresult;
+
+        b.expName = a1;
+
+        for(int i = 0 ; i<100;i++){
+            if ((a2==test[i].varName)&&(test[i].type=="int")){
+                    i2 = test[i].integer;
+                    a2 = String.valueOf(i2);
+                    break;
             }
-            b.expref1 = a2;
-            b.bop = a3;
-            b.expref2 = a4;
-            //check a[2], a[4] whether is variables
-            //if expref1 and expref2 are int {
-            if (a1.matches("-?\\d+")&& a4.matches("-?\\d+")) {  //a2 a4 are integers
-                switch (bop) {
-                    case "+": result =Integer.parseInt(a2) + Integer.parseInt(a4);
-                    case "-": result =Integer.parseInt(a2) - Integer.parseInt(a4);
-                    case "*": result =Integer.parseInt(a2) * Integer.parseInt(a4);
-                    case "/": result =Integer.parseInt(a2) / Integer.parseInt(a4);
-                    case ">": bolresult= Integer.parseInt(a2) > Integer.parseInt(a4);
-                    case ">=": bolresult= Integer.parseInt(a2) >= Integer.parseInt(a4);
-                    case "<": bolresult= Integer.parseInt(a2) < Integer.parseInt(a4);
-                    case "<=": bolresult= Integer.parseInt(a2) <= Integer.parseInt(a4);
-                    case "==": bolresult= Integer.parseInt(a2) == Integer.parseInt(a4);
-                    case "!=": bolresult= Integer.parseInt(a2) != Integer.parseInt(a4);
-                }
+            if ((a2==test[i].varName)&&(test[i].type=="bool")){
+                    b2=  test[i].bool;
+                    a2 = String.valueOf(b2);
+                    break;
             }
-
-            else {
-                switch (bop) {
-                    case "&&": bolresult = Boolean.parseBoolean(a2) && Boolean.parseBoolean(a4);
-
-                    case "||": bolresult = Boolean.parseBoolean(a2) || Boolean.parseBoolean(a4);
-
-                    case "==": bolresult = Boolean.parseBoolean(a2) == Boolean.parseBoolean(a4);
-
-                    case "!=": bolresult = Boolean.parseBoolean(a2) != Boolean.parseBoolean(a4);
-
-                }
+        }
+        for(int i = 0 ; i<100;i++){
+            if ((a4==test[i].varName)&&(test[i].type=="int")){
+                i4 = test[i].integer;
+                a4 = String.valueOf(i4);
+                break;
             }
-            return b;
+            if ((a4==test[i].varName)&&(test[i].type=="bool")){
+                b4=  test[i].bool;
+                a4= String.valueOf(b4);
+                break;
+            }
+        }
+
+        b.bop = a3;
+
+        //check a[2], a[4] whether is variables
+        //if expref1 and expref2 are int {
+        if (a2.matches("-?\\d+")&& a4.matches("-?\\d+")) {  //a2 a4 are integers
+            switch (bop) {
+                case "+": result =Integer.parseInt(a2) + Integer.parseInt(a4);
+                case "-": result =Integer.parseInt(a2) - Integer.parseInt(a4);
+                case "*": result =Integer.parseInt(a2) * Integer.parseInt(a4);
+                case "/": result =Integer.parseInt(a2) / Integer.parseInt(a4);
+                case ">": bolresult= Integer.parseInt(a2) > Integer.parseInt(a4);
+                case ">=": bolresult= Integer.parseInt(a2) >= Integer.parseInt(a4);
+                case "<": bolresult= Integer.parseInt(a2) < Integer.parseInt(a4);
+                case "<=": bolresult= Integer.parseInt(a2) <= Integer.parseInt(a4);
+                case "==": bolresult= Integer.parseInt(a2) == Integer.parseInt(a4);
+                case "!=": bolresult= Integer.parseInt(a2) != Integer.parseInt(a4);
+            }
+        }
+
+        else {
+            switch (bop) {
+                case "&&": bolresult = Boolean.parseBoolean(a2) && Boolean.parseBoolean(a4);
+
+                case "||": bolresult = Boolean.parseBoolean(a2) || Boolean.parseBoolean(a4);
+
+                case "==": bolresult = Boolean.parseBoolean(a2) == Boolean.parseBoolean(a4);
+
+                case "!=": bolresult = Boolean.parseBoolean(a2) != Boolean.parseBoolean(a4);
+
+            }
+        }
+        return b;
+
+    }
 
         }
     public void unexpr(String[] a) {
