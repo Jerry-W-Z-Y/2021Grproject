@@ -1,6 +1,20 @@
 package hk.edu.polyu.comp.comp2021.simple.model;
 
 public class Simple {
+    
+    public static boolean isNumeric(String string) {
+        int intValue;
+
+        if(string == null || string.equals("")) {
+            return false;
+        }
+        try {
+            intValue = Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+        }
+        return false;
+    }
 
     private String lab, type, varName;
     private boolean bool,boolexp;
