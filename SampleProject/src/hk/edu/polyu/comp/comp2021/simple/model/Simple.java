@@ -94,36 +94,47 @@ public class Simple {
             switch (a3) {
                 case "+":
                     b.intexp = Integer.parseInt(a2) + Integer.parseInt(a4);
+                    b.type= "int";
                     break;
                 case "-":
                     b.intexp = Integer.parseInt(a2) - Integer.parseInt(a4);
+                    b.type= "int";
                     break;
                 case "*":
                     b.intexp = Integer.parseInt(a2) * Integer.parseInt(a4);
+                    b.type= "int";
                     break;
                 case "/":
                     b.intexp = Integer.parseInt(a2) / Integer.parseInt(a4);
+                    b.type= "int";
                     break;
                 case "%" :
                     b.intexp =  Integer.parseInt(a2) % Integer.parseInt(a4);
+                    b.type= "int";
                         break;
                 case ">":
                     b.boolexp = Integer.parseInt(a2) > Integer.parseInt(a4);
+                    b.type= "bool";
                     break;
                 case ">=":
                     b.boolexp = Integer.parseInt(a2) >= Integer.parseInt(a4);
+                    b.type= "bool";
                     break;
                 case "<":
                     b.boolexp = Integer.parseInt(a2) < Integer.parseInt(a4);
+                    b.type= "bool";
                     break;
                 case "<=":
                     b.boolexp = Integer.parseInt(a2) <= Integer.parseInt(a4);
+                    b.type= "bool";
                     break;
                 case "==":
                     b.boolexp = Integer.parseInt(a2) == Integer.parseInt(a4);
+                    b.type= "bool";
                     break;
                 case "!=":
                     b.boolexp = Integer.parseInt(a2) != Integer.parseInt(a4);
+                    b.type= "bool";
                     break;
             }
         }
@@ -133,25 +144,29 @@ public class Simple {
                 switch (a3) {
                     case ("&&"):
                         b.boolexp = Boolean.parseBoolean(a2) && Boolean.parseBoolean(a4);
+                        b.type= "bool";
                         break;
 
                     case "||":
                         b.boolexp = Boolean.parseBoolean(a2) || Boolean.parseBoolean(a4);
+                        b.type= "bool";
                         break;
 
                     case "==":
                         b.boolexp = Boolean.parseBoolean(a2) == Boolean.parseBoolean(a4);
+                        b.type= "bool";
                         break;
 
                     case "!=":
                         b.boolexp = Boolean.parseBoolean(a2) != Boolean.parseBoolean(a4);
+                        b.type= "bool";
                         break;
 
                 }
             }
 
 
-        System.out.println(b.boolexp+" int "+ b.intexp);
+        System.out.println(b.expName+" "+ b.boolexp+" int "+ b.intexp+ b.type);
         return b;
 
     }
@@ -163,42 +178,44 @@ public class Simple {
         c.expName = a1;
         c.uop = a2;
         c.expref1 = a3;
-
+        System.out.println(a1+" "+a3);
         for(int j = 0 ; j<test.length;j++){
 
             if(test[j]!=null){
-                if ((a2.equals(test[j].varName))&&(test[j].type.equals("int"))){
-                    i = test[i].integer;
-                    a2 = String.valueOf(i);
+                if ((a3.equals(test[j].expName))&&(test[j].type.equals("int"))){
+                    i = test[j].intexp;
+                    a3 = String.valueOf(i);
 
                 }
-                if ((a2.equals(test[j].varName))&&(test[j].type.equals("bool"))){
-                    b =  test[i].bool;
-                    a2 = String.valueOf(b);
+                if ((a3.equals(test[j].expName))&&(test[j].type.equals("bool"))){
+                    b =  test[j].boolexp;
+                    a3 = String.valueOf(b);
 
                 }
             }
         }
+        System.out.println(a1+" "+a3);
 
-        if (isNumeric(a2)) {
-            switch (a3) {
+        if (isNumeric(a3)) {
+            c.type = "int";
+            switch (a2) {
                 case "#":
-                    c.intexp = Integer.parseInt(a2);
+                    c.intexp = Integer.parseInt(a3);
                     break;
                 case "~":
-                    c.intexp = - (Integer.parseInt(a2));
+                    c.intexp = - (Integer.parseInt(a3));
             }
         }
 
         else{
-            switch (a3) {
+            c.type = "bool";
+            switch (a2) {
                 case "!":
-                    c.boolexp = !(Boolean.parseBoolean(a2));
+                    c.boolexp = !(Boolean.parseBoolean(a3));
             }
         }
+        System.out.println(c.boolexp+" int "+ c.intexp);
         return c;
     }
-
-}
 
 }
