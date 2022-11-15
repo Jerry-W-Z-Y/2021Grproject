@@ -34,7 +34,10 @@ public class Application {
                     data[i] = simple.binexpr(strs[1],strs[2],strs[3],strs[4], data);
                     break;
                 case "unexpr":
-                    simple.unexpr(strs);
+                    i = 0;
+                    while (data[i] != null)
+                        i++;
+                    simple.unexpr(strs[1],strs[2],strs[3], data);
                     break;
             }
         } while (! input.equals("quit"));
