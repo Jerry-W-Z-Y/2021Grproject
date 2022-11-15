@@ -155,23 +155,48 @@ public class Simple {
         return b;
 
     }
-    public void unexpr(String[] a) {
+    public Simple unexpr(String a1, String a2 , String a3, Simple[] test) {
         //code here
         Simple c = new Simple();
-        c.expName = a[1];
-        c.uop = a[2];
-        //if expref1 is int{
-        switch(bop){
-            case "#": ;
-            case "~": ;
+        int i;
+        boolean b;
+        c.expName = a1;
+        c.uop = a2;
+        c.expref1 = a3;
+
+        for(int j = 0 ; j<test.length;j++){
+
+            if(test[j]!=null){
+                if ((a2.equals(test[j].varName))&&(test[j].type.equals("int"))){
+                    i = test[i].integer;
+                    a2 = String.valueOf(i);
+
+                }
+                if ((a2.equals(test[j].varName))&&(test[j].type.equals("bool"))){
+                    b =  test[i].bool;
+                    a2 = String.valueOf(b);
+
+                }
+            }
         }
 
-        //if expref1 is bool{
-        switch (bop){
-            case "!": ;
+        if (isNumeric(a2)) {
+            switch (a3) {
+                case "#":
+                    c.intexp = Integer.parseInt(a2);
+                    break;
+                case "~":
+                    c.intexp = - (Integer.parseInt(a2));
+            }
         }
-        c.expref1 = a[3];
-        System.out.println("unexpr variable");
+
+        else{
+            switch (a3) {
+                case "!":
+                    c.boolexp = !(Boolean.parseBoolean(a2));
+            }
+        }
+        return c;
     }
 
 }
