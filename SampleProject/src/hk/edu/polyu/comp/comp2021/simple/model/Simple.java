@@ -1,221 +1,124 @@
-package hk.edu.polyu.comp.comp2021.simple.model;
+package hk.edu.polyu.comp.comp2021.simple;
 
-public class Simple {
-    
-    private String lab, type, varName;
-    private boolean bool,boolexp;
-    private int integer, intexp;
-    
-    private String expName,bop,uop,expref1,expref2;
-    
-    
-   public static boolean isNumeric(String string) {
-        int intValue;
+import hk.edu.polyu.comp.comp2021.simple.model.Simple;
 
-        if(string == null || string.equals("")) {
-            return false;
-        }
-        try {
-            intValue = Integer.parseInt(string);
-            return true;
-        } catch (NumberFormatException e) {
-        }
-        return false;
-    }
-    
 
-    public Simple() {
-    }
-    public Simple(String[] a) {
-        this.lab = a[1];
-        this.type = a[2];//only "bool", "int" allowed
-        this.varName = a[3];
-        if (this.type.equals("bool"))
-            this.bool = Boolean.parseBoolean(a[4]);
-        else if (this.type.equals("int")) {
-            int n = Integer.parseInt(a[4]);
-            this.integer = n > 99999 ? 99999 : n < -99999 ? -99999 : n;
+import java.util.Scanner;
+
+
+public class Application {
+
+    public static class lab{
+        String labcmd,labname;
+        String []para;
+        public lab(String lc,String ln,String []pa){
+            this.labcmd= lc;
+            this.labname= ln;
+            this.para =pa;
         }
     }
-
-    public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
-        //code here
-
-        Simple b = new Simple();
-        int i2,i4;
-        boolean b2,b4;
-        b.boolexp = false;
-
-        b.expName = a1;
-
-        for(int i = 0 ; i<test.length;i++){
-
-            if(test[i]!=null){
-                if ((a2.equals(test[i].varName))&&(test[i].type.equals("int"))){
-                    i2 = test[i].integer;
-                    a2 = String.valueOf(i2);
-
-                }
-                if ((a4.equals(test[i].varName))&&(test[i].type.equals("bool"))){
-                    b2=  test[i].bool;
-                    a2 = String.valueOf(b2);
-
+    public static void exec(String lb,lab[] tt,Simple[] test,Simple s){
+        int labid =-1;
+        for (int i = 0 ; i< tt.length; i++){
+            if (tt[i]!=null) {
+                if (lb.equals(tt[i].labname)) {
+                    labid = i;
+                    break;
                 }
             }
         }
-        for(int i = 0 ; i<test.length;i++){
-            if(test[i]!=null){
-            if ((a4.equals(test[i].varName))&&(test[i].type.equals("int"))){
-                i4 = test[i].integer;
-                a4 = String.valueOf(i4);
 
-            }
-                if ((a4.equals(test[i].varName))&&(test[i].type.equals("bool"))){
-                b4=  test[i].bool;
-                a4= String.valueOf(b4);
-
-            }
-            }
-        }
-
-
-
-
-
-        b.bop = a3;
-        System.out.println(a2+" "+a3+" "+a4);
-        System.out.println(isNumeric(a2));
-        System.out.println(isNumeric(a4));
-        //check a[2], a[4] whether is variables
-        //if expref1 and expref2 are int {
-        if (((isNumeric(a2))) && (isNumeric(a4))) {  //a2 a4 are integers
-
-
-            switch (a3) {
-                case "+":
-                    b.intexp = Integer.parseInt(a2) + Integer.parseInt(a4);
-                    b.type= "int";
+        if(labid >= 0) {
+            switch (tt[labid].labcmd) {
+                case "vardef":
+                    int i = 0;
+                    while (test[i] != null)
+                        i++;
+                    test[i] = s.vardef(tt[labid].para);
                     break;
-                case "-":
-                    b.intexp = Integer.parseInt(a2) - Integer.parseInt(a4);
-                    b.type= "int";
+                case "assign":
+                    s.assign(tt[labid].para[2], tt[labid].para[3], test);
                     break;
-                case "*":
-                    b.intexp = Integer.parseInt(a2) * Integer.parseInt(a4);
-                    b.type= "int";
+                case "block":
+                    for (int p =2;p < tt[labid].para.length ;p++) {
+                        String bk = tt[labid].para[p];
+                        exec(bk, tt, test, s);
+                    }
                     break;
-                case "/":
-                    b.intexp = Integer.parseInt(a2) / Integer.parseInt(a4);
-                    b.type= "int";
+                case"if":
+                    boolean p = s.getbool(tt[labid].para[2],test);
+                    System.out.println(p);
+                    if (p){
+                        exec(tt[labid].para[3],tt,test,s);
+                    }else
+                        exec(tt[labid].para[4],tt,test,s);
                     break;
-                case "%" :
-                    b.intexp =  Integer.parseInt(a2) % Integer.parseInt(a4);
-                    b.type= "int";
-                        break;
-                case ">":
-                    b.boolexp = Integer.parseInt(a2) > Integer.parseInt(a4);
-                    b.type= "bool";
+                case"while":
+                    boolean q = s.getbool(tt[labid].para[2],test);
+                    System.out.println(tt[labid].para[2]+" pass "+ q);
+                    while (q){
+                        exec(tt[labid].para[3],tt,test,s);
+                        q = s.getbool(tt[labid].para[2],test);
+                        System.out.println(q);
+                    }
                     break;
-                case ">=":
-                    b.boolexp = Integer.parseInt(a2) >= Integer.parseInt(a4);
-                    b.type= "bool";
+                case"skip ":
                     break;
-                case "<":
-                    b.boolexp = Integer.parseInt(a2) < Integer.parseInt(a4);
-                    b.type= "bool";
-                    break;
-                case "<=":
-                    b.boolexp = Integer.parseInt(a2) <= Integer.parseInt(a4);
-                    b.type= "bool";
-                    break;
-                case "==":
-                    b.boolexp = Integer.parseInt(a2) == Integer.parseInt(a4);
-                    b.type= "bool";
-                    break;
-                case "!=":
-                    b.boolexp = Integer.parseInt(a2) != Integer.parseInt(a4);
-                    b.type= "bool";
+                case "print":
                     break;
             }
         }
+        else System.out.println("wrong labname");
 
-        else{
-            System.out.println(Boolean.parseBoolean(a2)+" "+Boolean.parseBoolean(a4));
-                switch (a3) {
-                    case ("&&"):
-                        b.boolexp = Boolean.parseBoolean(a2) && Boolean.parseBoolean(a4);
-                        b.type= "bool";
-                        break;
-
-                    case "||":
-                        b.boolexp = Boolean.parseBoolean(a2) || Boolean.parseBoolean(a4);
-                        b.type= "bool";
-                        break;
-
-                    case "==":
-                        b.boolexp = Boolean.parseBoolean(a2) == Boolean.parseBoolean(a4);
-                        b.type= "bool";
-                        break;
-
-                    case "!=":
-                        b.boolexp = Boolean.parseBoolean(a2) != Boolean.parseBoolean(a4);
-                        b.type= "bool";
-                        break;
-
-                }
-            }
-
-
-        System.out.println(b.expName+" "+ b.boolexp+" int "+ b.intexp+ b.type);
-        return b;
 
     }
-    public Simple unexpr(String a1, String a2 , String a3, Simple[] test) {
-        //code here
-        Simple c = new Simple();
-        int i;
-        boolean b;
-        c.expName = a1;
-        c.uop = a2;
-        c.expref1 = a3;
-        System.out.println(a1+" "+a3);
-        for(int j = 0 ; j<test.length;j++){
 
-            if(test[j]!=null){
-                if ((a3.equals(test[j].expName))&&(test[j].type.equals("int"))){
-                    i = test[j].intexp;
-                    a3 = String.valueOf(i);
 
-                }
-                if ((a3.equals(test[j].expName))&&(test[j].type.equals("bool"))){
-                    b =  test[j].boolexp;
-                    a3 = String.valueOf(b);
 
-                }
-            }
-        }
-        System.out.println(a1+" "+a3);
 
-        if (isNumeric(a3)) {
-            c.type = "int";
-            switch (a2) {
-                case "#":
-                    c.intexp = Integer.parseInt(a3);
+    public static void main(String[] args){
+
+        Simple simple = new Simple();
+        // Initialize and utilize the system
+        String input;
+        Simple[] data = new Simple[100];//used to store vardef
+        lab[] labs = new lab[100];
+
+
+        do {
+            System.out.println("Command: ");
+            Scanner scanner = new Scanner(System.in);
+            input = scanner.nextLine();
+            String[] strs = input.split(" ");
+
+            switch (strs[0]) {
+
+                case "binexpr":
+                    simple.binexpr(strs[1],strs[2],strs[3],strs[4], data);
                     break;
-                case "~":
-                    c.intexp = - (Integer.parseInt(a3));
-            }
-        }
+                case "unexpr":
+                    simple.unexpr(strs[1],strs[2],strs[3], data);
+                    break;
 
-        else{
-            c.type = "bool";
-            switch (a2) {
-                case "!":
-                    c.boolexp = !(Boolean.parseBoolean(a3));
+                case "vardef":
+                case "assign":
+                case "block":
+                case "if":
+                case "print":    
+                case "skip":    
+                case "while":
+                    int p = 0;
+                    while (labs[p]!=null)
+                        p++;
+                    lab temp = new lab(strs[0],strs[1],strs);
+                    labs[p]= temp;
+                    System.out.println(labs[p].labname+" "+labs[p].para[0]);
+                    break;
+                case "execute":
+                    exec(strs[1],labs,data,simple);
+                    break;
             }
-        }
-        System.out.println(c.boolexp+" int "+ c.intexp);
-        return c;
+        } while (! input.equals("quit"));
     }
 
 }
