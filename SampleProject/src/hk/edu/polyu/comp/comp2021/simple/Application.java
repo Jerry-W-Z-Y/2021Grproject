@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 
-public class Application {
+public class Application {  //@main
 
     public  static void store1(String [] Str ,String location ){
         //create file object to store all string in Str
@@ -28,13 +28,13 @@ public class Application {
             System.out.print("Error occur : " + e.getMessage());
         }
 
-    }
+    }  //@store function
 
 
     public  static  String[] load1(String location){
         //load function , open a file at String `location
         // return array of String , where each String is 1 line of the file
-        String result[] ;
+        String [] result ;
         try{
             String str="" ;
             File file = new File(location);
@@ -50,7 +50,7 @@ public class Application {
             System.out.println("Error occur : " + e.getMessage());
         }
         return null;
-    }
+    } //@load function
 
     public static void print(String rf, Simple[]test,Simple s,exptable[]E){
         s.getname(rf,test);
@@ -65,7 +65,7 @@ public class Application {
             }
         }
 
-    }
+    } // @print variable rf or expression rf
 
     public static void brep(String en, exptable [] E, Simple[] test , Simple s){
         for(int j = 0 ; j<E.length;j++){
@@ -77,16 +77,16 @@ public class Application {
                 //System.out.println(en+ " "+ E[j].type);
                 if ((en.equals(E[j].expname))&&(E[j].type.equals("un"))) {
                     //execute binexpr
-                    System.out.println(E[j].expref[3]);
+                    //System.out.println(E[j].expref[3]);
                     brep(E[j].expref[3],E,test,s);
                     s.unexpr(E[j].expref[1],E[j].expref[2],E[j].expref[3],test);
                 }
             }
         }
 
-    }
+    } //@execute binexpr or unexpr
 
-    public static void exec(String lb,lab[] tt,Simple[] test,Simple s, exptable[] E){
+    public static void exec(String lb,lab[] tt,Simple[] test,Simple s, exptable[] E){ //@ execute lab
         int labid =-1;
         for (int i = 0 ; i< tt.length; i++){
             if (tt[i]!=null) {
@@ -106,15 +106,7 @@ public class Application {
                     test[i] = s.vardef(tt[labid].para);
                     break;
                 case "assign":
-                    /*for(int j = 0 ; j<E.length;j++){
-                        if(E[j]!=null) {
-                            //System.out.println(E[j].expname);
-                            if ((tt[labid].para[3].equals(E[j].expname))&&(E[j].type.equals("bi"))) {
-                                //execute binexpr
-                                s.binexpr(E[j].expref[1], E[j].expref[2], E[j].expref[3], E[j].expref[4], test);
-                            }
-                        }
-                    }*/
+
                     brep(tt[labid].para[3],E,test,s);
                     s.assign(tt[labid].para[2], tt[labid].para[3], test);
                     break;
@@ -127,15 +119,7 @@ public class Application {
                     break;
                 case"if":
 
-                    /*for(int j = 0 ; j<E.length;j++){
-                        if(E[j]!=null) {
-                            //System.out.println(E[j].expname);
-                            if (tt[labid].para[2].equals(E[j].expname)) {
-                                //execute binexpr
-                                s.binexpr(E[j].expref[1], E[j].expref[2], E[j].expref[3], E[j].expref[4], test);
-                            }
-                        }
-                    }*/
+
                     brep(tt[labid].para[2],E,test,s);
                     boolean p = s.getbool(tt[labid].para[2],test);
                     System.out.println(p);
@@ -145,31 +129,15 @@ public class Application {
                         exec(tt[labid].para[4],tt,test,s,E);
                     break;
                 case"while":
-                    /*for(int j = 0 ; j<E.length;j++){
-                        if(E[j]!=null) {
-                            //System.out.println(E[j].expname);
-                            if ((tt[labid].para[2].equals(E[j].expname))&&E[j].type.equals("bi")) {
-                                //execute binexpr
-                                s.binexpr(E[j].expref[1], E[j].expref[2], E[j].expref[3], E[j].expref[4], test);
-                            }
-                        }
-                    }*/
+
                     brep(tt[labid].para[2],E,test,s);
                     boolean q = s.getbool(tt[labid].para[2],test);
                     //System.out.println(tt[labid].para[2]+" pass "+ q);
                     while (q){
                         exec(tt[labid].para[3],tt,test,s,E);
-                        /*for(int j = 0 ; j<E.length;j++){
-                            if(E[j]!=null) {
-                                System.out.println(E[j].expname);
-                                if (tt[labid].para[2].equals(E[j].expname)) {
-                                    //execute binexpr
-                                    s.binexpr(E[j].expref[1], E[j].expref[2], E[j].expref[3], E[j].expref[4], test);
-                                }
-                            }
-                        }*/
+
                         brep(tt[labid].para[2],E,test,s);
-                        System.out.println("afterwhile" + q);
+                        //System.out.println("afterwhile" + q);
                         q = s.getbool(tt[labid].para[2],test);
                         //System.out.println(q);
                     }
@@ -186,7 +154,7 @@ public class Application {
 
     }
 
-    public static class lab{
+    public static class lab{ //lab table
         String labcmd,labname;
         String []para;
         public lab(String lc,String ln,String []pa){
@@ -196,28 +164,28 @@ public class Application {
         }
     }
 
-    public static class program{
+    public static class program{ //program table
         String programname;
 
         String labnamep;
 
         String [] commandlist = new String[1000];
 
-        public  String cmdll(String k, lab[] lb){
+        public  String cmdll(String k, lab[] lb){  //@define command for lab table
             String cmd1 = "";
 
             for (int x = 0 ;x < lb.length ; x++){
                 if ((lb[x]!= null) && (k.equals(lb[x].labname))) {
                     for (String s : lb[x].para ) {
                         cmd1 = cmd1+s+" ";
-                    };
+                    }
                 }
             }
             return cmd1;
         }
 
-        public  program(){};
-        public program(String pg, String lp, lab[] lb){
+        public  program(){}
+        public program(String pg, String lp, lab[] lb){ //@define command for lab table
             this.programname= pg;
             this.labnamep= lp;
             int count = 0;
@@ -240,11 +208,11 @@ public class Application {
                     }
             }
 
-            System.out.println(cmd);
+            //System.out.println(cmd);
         }
     }
 
-    public static class exptable{
+    public static class exptable{  // table of expression
         String expname, type;
         String []expref;
         public exptable(String expn,String []ref, String tp){
@@ -254,7 +222,7 @@ public class Application {
         }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args){ //@main program
 
         Simple simple = new Simple();
         // Initialize and utilize the system
@@ -304,11 +272,11 @@ public class Application {
                         p++;
                     lab temp = new lab(strs[0],strs[1],strs);
                     labs[p]= temp;
-                    System.out.println(labs[p].labname+" "+labs[p].para[0]);
+                    //System.out.println(labs[p].labname+" "+labs[p].para[0]);
                     break;
                 case"program":
                     int l = 0;
-                    while (programlist[1]!=null)
+                    while (programlist[l]!=null)
                         l++;
                     program temppro = new program(strs[1],strs[2],labs);
                     programlist[l] = temppro;
@@ -343,7 +311,7 @@ public class Application {
                     break;
                 case "load":
                     l = 0;
-                    while (programlist[1]!=null)
+                    while (programlist[l]!=null)
                         l++;
                     program tempprog = new program();
                     tempprog.programname = strs[2];
@@ -356,4 +324,3 @@ public class Application {
     }
 
 }
-
