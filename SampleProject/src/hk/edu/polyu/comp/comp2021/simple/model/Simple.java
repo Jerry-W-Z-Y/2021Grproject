@@ -106,7 +106,7 @@ public class Simple {
                 System.out.println(a2+" "+test[i].type);
                 if ((a2.equals(test[i].varName))&&(test[i].type.equals("bool"))){
                     b2=  test[i].bool;
-                    System.out.println(b2+"b2");
+                    //System.out.println(b2+"b2");
                     a2 = String.valueOf(b2);
 
                 }
