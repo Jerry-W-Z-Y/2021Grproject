@@ -12,7 +12,19 @@ public class Simple {
     private String expName,bop,uop;
 
 
+    public  String getexpName(){
+        return  this.expName;
+    }
+    public  String getexptype(){
+        return  this.type;
+    };
 
+    public  int getexpint(){
+        return  this.intexp;
+    };
+    public  boolean getexpbool(){
+        return this.boolexp;
+    }
 
     public int checkexpname(String epn, Simple[] test){
 
@@ -334,11 +346,11 @@ public class Simple {
             if (test[x] != null) {
                 if (test[x].varName != null) {
                     if ((test[x].varName.equals(expn)) && (test[x].type.equals("int"))) {
-                        String output = test[x].type+" "+test[x].varName + " = " + test[x].integer;
+                        String output = "["+test[x].integer+"] ";
                         System.out.println(output);
                     }
                     if ((test[x].varName.equals(expn)) && (test[x].type.equals("bool"))) {
-                        String output =  test[x].type+" "+test[x].varName + " = " + test[x].bool;
+                        String output =  "["+ test[x].bool+"] ";
                         System.out.println(output);
                     }
                 }
