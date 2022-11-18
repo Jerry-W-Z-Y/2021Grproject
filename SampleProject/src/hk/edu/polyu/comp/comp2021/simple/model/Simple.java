@@ -36,6 +36,7 @@ public class Simple {
             intValue = Integer.parseInt(string);
             return true;
         } catch (NumberFormatException e) {
+            System.out.println("");
         }
         return false;
     }
@@ -66,11 +67,11 @@ public class Simple {
             int n = Integer.parseInt(a[4]);
             k.integer = n > 99999 ? 99999 : n < -99999 ? -99999 : n;
         }
-        System.out.println(k.integer+" "+k.varName+" " +k.bool);
+        //System.out.println(k.integer+" "+k.varName+" " +k.bool);
 
         return k;
     }
-    public void binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
+    public void binexpr(String a1,String a2 ,String a3,String a4, Simple[] test) {
         //code here
 
         Simple b = new Simple();
@@ -120,7 +121,7 @@ public class Simple {
 
         b.bop = a3;
 
-        System.out.println(a2+" "+a3+" "+a4);
+        //System.out.println(a2+" "+a3+" "+a4);
         //System.out.println(isNumeric(a2)+"2numeric");
         //System.out.println(isNumeric(a4)+"4numeric");
         //check a[2], a[4] whether is variables
@@ -178,7 +179,7 @@ public class Simple {
         }
 
         else{
-            System.out.println(Boolean.parseBoolean(a2)+" "+Boolean.parseBoolean(a4));
+            //System.out.println(Boolean.parseBoolean(a2)+" "+Boolean.parseBoolean(a4));
                 switch (a3) {
                     case ("&&"):
                         b.boolexp = Boolean.parseBoolean(a2) && Boolean.parseBoolean(a4);
@@ -228,7 +229,7 @@ public class Simple {
         c.uop = a2;
 
 
-        System.out.println(a1+" "+a3);
+        //System.out.println(a1+" "+a3);
         for(int j = 0 ; j<test.length;j++){
 
             if(test[j]!=null){
@@ -244,7 +245,7 @@ public class Simple {
                 }
             }
         }
-        System.out.println(a1+" "+a3);
+        //System.out.println(a1+" "+a3);
 
         if (isNumeric(a3)) {
             c.type = "int";
@@ -259,12 +260,10 @@ public class Simple {
 
         else{
             c.type = "bool";
-            switch (a2) {
-                case "!":
-                    c.boolexp = !(Boolean.parseBoolean(a3));
-            }
+            if (a2.equals("!")){ c.boolexp = !(Boolean.parseBoolean(a3));}
+
         }
-        System.out.println(c.boolexp+" int "+ c.intexp);
+        //System.out.println(c.boolexp+" int "+ c.intexp);
         int check = checkexpname(a1, test);
         int m= 0;
         if (check >=  0){
@@ -302,11 +301,11 @@ public class Simple {
             if  (test[i]!=null){
                 if (a2.equals(test[i].varName) && test[i].type.equals("int") ){
                     test[i].integer  = x;
-                    System.out.println(x);
+                    //System.out.println(x);
                 }
                 if (a2.equals(test[i].varName) && test[i].type.equals("bool") ){
                     test[i].bool= bo;
-                    System.out.println(bo);
+                    //System.out.println(bo);
                 }
             }
         }
