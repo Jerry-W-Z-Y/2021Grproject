@@ -1,15 +1,32 @@
 package hk.edu.polyu.comp.comp2021.simple.model;
 
+
+
 public class Simple {
-    
-    private String lab, type, varName;
-    private boolean bool,boolexp;
+
+    private String  type, varName;
+
+    private boolean bool, boolexp;
     private int integer, intexp;
-    
-    private String expName,bop,uop,expref1,expref2;
-    
-    
-   public static boolean isNumeric(String string) {
+
+    private String expName,bop,uop;
+
+
+
+
+    public int checkexpname(String epn, Simple[] test){
+
+        for(int x = 0 ; x<test.length;x++){
+        if(test[x]!=null){
+            if (epn.equals(test[x].expName)) {
+                return x;
+                }
+            }
+        }
+        return -1;
+    }
+
+    public static boolean isNumeric(String string) {
         int intValue;
 
         if(string == null || string.equals("")) {
@@ -22,12 +39,11 @@ public class Simple {
         }
         return false;
     }
-    
 
     public Simple() {
     }
     public Simple(String[] a) {
-        this.lab = a[1];
+
         this.type = a[2];//only "bool", "int" allowed
         this.varName = a[3];
         if (this.type.equals("bool"))
@@ -38,17 +54,35 @@ public class Simple {
         }
     }
 
-    public Simple binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
+    public Simple vardef(String[] a) {
+        //code here
+        Simple k = new Simple();
+
+        k.type = a[2];//only "bool", "int" allowed
+        k.varName = a[3];
+        if (k.type.equals("bool"))
+            k.bool = Boolean.parseBoolean(a[4]);
+        else if (k.type.equals("int")) {
+            int n = Integer.parseInt(a[4]);
+            k.integer = n > 99999 ? 99999 : n < -99999 ? -99999 : n;
+        }
+        System.out.println(k.integer+" "+k.varName+" " +k.bool);
+
+        return k;
+    }
+    public void binexpr(String a1,String a2 ,String a3,String a4, Simple test[]) {
         //code here
 
         Simple b = new Simple();
+
         int i2,i4;
         boolean b2,b4;
         b.boolexp = false;
-
         b.expName = a1;
+        int i ;
+        int j;
 
-        for(int i = 0 ; i<test.length;i++){
+        for(i = 0 ; i<test.length;i++){
 
             if(test[i]!=null){
                 if ((a2.equals(test[i].varName))&&(test[i].type.equals("int"))){
@@ -56,22 +90,24 @@ public class Simple {
                     a2 = String.valueOf(i2);
 
                 }
-                if ((a4.equals(test[i].varName))&&(test[i].type.equals("bool"))){
+                System.out.println(a2+" "+test[i].type);
+                if ((a2.equals(test[i].varName))&&(test[i].type.equals("bool"))){
                     b2=  test[i].bool;
+                    System.out.println(b2+"b2");
                     a2 = String.valueOf(b2);
 
                 }
             }
         }
-        for(int i = 0 ; i<test.length;i++){
-            if(test[i]!=null){
-            if ((a4.equals(test[i].varName))&&(test[i].type.equals("int"))){
-                i4 = test[i].integer;
+        for(j = 0 ; j<test.length;j++){
+            if(test[j]!=null){
+            if ((a4.equals(test[j].varName))&&(test[j].type.equals("int"))){
+                i4 = test[j].integer;
                 a4 = String.valueOf(i4);
 
             }
-                if ((a4.equals(test[i].varName))&&(test[i].type.equals("bool"))){
-                b4=  test[i].bool;
+                if ((a4.equals(test[j].varName))&&(test[j].type.equals("bool"))){
+                b4=  test[j].bool;
                 a4= String.valueOf(b4);
 
             }
@@ -83,9 +119,10 @@ public class Simple {
 
 
         b.bop = a3;
+
         System.out.println(a2+" "+a3+" "+a4);
-        System.out.println(isNumeric(a2));
-        System.out.println(isNumeric(a4));
+        //System.out.println(isNumeric(a2)+"2numeric");
+        //System.out.println(isNumeric(a4)+"4numeric");
         //check a[2], a[4] whether is variables
         //if expref1 and expref2 are int {
         if (((isNumeric(a2))) && (isNumeric(a4))) {  //a2 a4 are integers
@@ -93,6 +130,7 @@ public class Simple {
 
             switch (a3) {
                 case "+":
+
                     b.intexp = Integer.parseInt(a2) + Integer.parseInt(a4);
                     b.type= "int";
                     break;
@@ -166,18 +204,30 @@ public class Simple {
             }
 
 
-        System.out.println(b.expName+" "+ b.boolexp+" int "+ b.intexp+ b.type);
-        return b;
+
+
+        int check = checkexpname(a1,test);
+        int m= 0;
+
+        if (check >=  0){
+            test[check]= b;
+        }else {
+            while (test[m] != null) {
+                m++;
+            }
+            test[m] = b;
+        }
 
     }
-    public Simple unexpr(String a1, String a2 , String a3, Simple[] test) {
+    public void unexpr(String a1, String a2 , String a3, Simple[] test) {
         //code here
         Simple c = new Simple();
         int i;
         boolean b;
         c.expName = a1;
         c.uop = a2;
-        c.expref1 = a3;
+
+
         System.out.println(a1+" "+a3);
         for(int j = 0 ; j<test.length;j++){
 
@@ -215,7 +265,87 @@ public class Simple {
             }
         }
         System.out.println(c.boolexp+" int "+ c.intexp);
-        return c;
+        int check = checkexpname(a1, test);
+        int m= 0;
+        if (check >=  0){
+            test[check]= c;
+        }else {
+            while (test[m] != null) {
+                m++;
+            }
+            test[m] = c;
+        }
+    }
+    public void assign(String a2 , String a3, Simple[] test){
+        int x=0;
+        boolean  bo = false;
+        if (isNumeric(a3)){
+            x= Integer.parseInt(a3);
+        }
+        else{
+            if (a3.equals("true") || a3.equals("false")) {
+                bo = Boolean.parseBoolean(a3);
+            }
+        }
+
+        for (int a = 0 ; a < test.length; a++){
+            if  (test[a]!=null) {
+                if (a3.equals(test[a].expName) && test[a].type.equals("int")) {
+                     x = test[a].intexp;
+                }
+                if (a3.equals(test[a].expName) && test[a].type.equals("bool")){
+                    bo = test[a].bool;
+                }
+            }
+        }
+        for (int i = 0 ; i< test.length;i++){
+            if  (test[i]!=null){
+                if (a2.equals(test[i].varName) && test[i].type.equals("int") ){
+                    test[i].integer  = x;
+                    System.out.println(x);
+                }
+                if (a2.equals(test[i].varName) && test[i].type.equals("bool") ){
+                    test[i].bool= bo;
+                    System.out.println(bo);
+                }
+            }
+        }
     }
 
+    public boolean getbool(String expn,Simple[] test) {
+        for (int x = 0; x < test.length; x++) {
+            if (test[x] != null) {
+                if(test[x].varName!= null) {
+                    if (test[x].varName.equals(expn)) {
+                        return test[x].bool;
+                    }
+                }
+                if( test[x].expName!=null) {
+                    if (test[x].expName.equals(expn)) {
+                        return test[x].boolexp;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public void getname(String expn,Simple[] test) {
+        for (int x = 0; x < test.length; x++) {
+            if (test[x] != null) {
+                if (test[x].varName != null) {
+                    if ((test[x].varName.equals(expn)) && (test[x].type.equals("int"))) {
+                        String output = test[x].type+" "+test[x].varName + " = " + test[x].integer;
+                        System.out.println(output);
+                    }
+                    if ((test[x].varName.equals(expn)) && (test[x].type.equals("bool"))) {
+                        String output =  test[x].type+" "+test[x].varName + " = " + test[x].bool;
+                        System.out.println(output);
+                    }
+                }
+            }
+
+        }
+    }
 }
+
