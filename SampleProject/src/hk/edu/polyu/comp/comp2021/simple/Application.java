@@ -54,13 +54,14 @@ public class Application {  //@main
 
     public static void print(String rf, Simple[]test,Simple s,exptable[]E){
         s.getname(rf,test);
-        for(int i = 0; i<E.length;i++){
-            if(E[i]!=null){
-                if ((rf.equals(E[i].expname))&&(E[i].type.equals("bi"))){
-                    System.out.println(E[i].expref[1]+" "+E[i].expref[2]+" "+E[i].expref[3]+" "+E[i].expref[4]);
+        brep(rf,E,test,s);
+        for(int i = 0 ;i< test.length;i++){
+            if((test[i]!=null)&&(test[i].getexpName()!=null)){
+                if ((test[i].getexpName().equals(rf))&&(test[i].getexptype().equals("int"))){
+                    System.out.println("["+test[i].getexpint()+"] ");
                 }
-                if ((rf.equals(E[i].expname))&&(E[i].type.equals("un"))){
-                    System.out.println(E[i].expref[1]+" "+E[i].expref[2]+" "+E[i].expref[3]);
+                if ((test[i].getexpName().equals(rf))&&(test[i].getexptype().equals("bool"))){
+                    System.out.println("["+test[i].getexpbool()+"] ");
                 }
             }
         }
