@@ -1,8 +1,8 @@
 package hk.edu.polyu.comp.comp2021.simple.model;
 
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SimpleTest {
@@ -16,12 +16,12 @@ public class SimpleTest {
     String command2_1 = "vardef vardef21 bool z true";
     String command2_2 = "vardef vardef22 bool k false";
 
-    String command3 = "binexpr aa x * 3";
+    String command3 = "unexpr exp2 ~ 10269";
     String command4 = "binexpr bb x * y";
     String command4_1 = "binexpr cc z && k";
     String command4_2 = "binexpr dd z != k";
 
-    String command5 = "unexpr uu ~ aa";
+    String command5 = "binexpr exp1 3423 * 3 ";
     String command6 = "assign assign1 y uu";
     String command7 = "print print1 aa";
     String command8 = "skip skip1";
@@ -62,44 +62,47 @@ public class SimpleTest {
     public void testvardef() {
         String[] test = command1.split(" ");
         Simple t = new Simple(test);
-        assertEquals(test[3], t.vardef(test).getexpName());
+
+        assertEquals(test[3], t.vardef(test).getVarName());
         assertEquals(test[2], t.vardef(test).getexptype());
-        assertEquals(test[4], t.vardef(test).getexpint());
+        assertEquals(Integer.parseInt(test[4]), t.vardef(test).getInt());
 
         String[]test1 = command1_1.split(" ");
-        assertEquals(MAX_INT, t.vardef(test1).getexpint());
-        assertEquals(MIN_INT, - t.vardef(test1).getexpint());
+        assertEquals(MAX_INT, t.vardef(test1).getInt());
+        assertEquals(MIN_INT, t.vardef(test1).getInt());
     }
 
     @Test
     public void testvardef2() {
         String[] test = command2.split(" ");
         Simple t = new Simple(test);
-        assertEquals(test[3], t.vardef(test).getexpName());
+        assertEquals(test[3], t.vardef(test).getVarName());
         assertEquals(test[2], t.vardef(test).getexptype());
-        assertTrue(t.vardef(test).getexpbool());
+        assertEquals(Integer.parseInt(test[4]), t.vardef(test).getInt());
 
         String[]test1 = command2_1.split(" ");
-        assertEquals(test1[3], t.vardef(test1).getexpName());
+        assertEquals(test1[3], t.vardef(test1).getVarName());
         test1 = command2_2.split(" ");
-        assertFalse(t.vardef(test1).getexpbool());
+        assertFalse(t.vardef(test1).getboolean());
     }
 
     @Test
     public void testbinexpr() {
         String[] test = command5.split(" ");
+
         Simple t = new Simple();
-        Simple[] all = prepare();
+        Simple[] all = new Simple[100];
+
         t.binexpr(test[1], test[2], test[3], test[4], all);
-        assertEquals(10269, t.getexpint());
+        assertEquals(10269, all[0].getexpint());
     }
     @Test
     public void testunexpr() {
         String[] test = command3.split(" ");
         Simple t = new Simple();
-        Simple[] all = prepare();
-        t.unexpr(test[1], test[2], test[3], all);
-        assertEquals(10269, t.getexpint());
+        Simple[] all1 = new Simple[100];
+        t.unexpr(test[1], test[2], test[3], all1);
+        assertEquals(-10269, all1[0].getexpint());
     }
 
 }
