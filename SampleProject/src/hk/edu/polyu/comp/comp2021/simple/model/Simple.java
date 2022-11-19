@@ -12,6 +12,14 @@ public class Simple {
     private String expName,bop,uop;
 
 
+    public  String getVarName(){
+        return  this.varName;
+    }
+
+    public int getInt(){return this.integer;}
+
+    public boolean getboolean(){return this.bool;}
+
     public  String getexpName(){
         return  this.expName;
     }
@@ -103,7 +111,7 @@ public class Simple {
                     a2 = String.valueOf(i2);
 
                 }
-                System.out.println(a2+" "+test[i].type);
+                //System.out.println(a2+" "+test[i].type);
                 if ((a2.equals(test[i].varName))&&(test[i].type.equals("bool"))){
                     b2=  test[i].bool;
                     //System.out.println(b2+"b2");
